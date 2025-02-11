@@ -1,27 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import { Player } from "./Player";
 
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+	const [songs, setSongs] = useState([])
+	const [currentSong, setCurrentSong] = useState()
+
+	useEffect(() => {
+		getData()
+	}, [])
+
+	const getData = async () => {
+
+		try {
+			const resp = await ferch("https://playground.4geeks.com/sound/songs")
+			const data = await resp.json()
+			setSongs(await data)
+		} catch (error) {
+			console.error("error----> ", error)
+		}
+	}
+
+
+	const handleSelectedSong = (el) => {
+		setCurrentSong(el)
+	}
+
+
+
+
+
+
+	return (
+		<section className="text-center container bg-dark test-white">
+
+			<section>
+
+				<ul>
+					{songs.sound?.map((el, i) => <li key={i} onClick={() => handleSelectedSong(songs.sound[i])}>{el.name}</li>)}
+				</ul>
+
+			</section>
+
+
+
+
+			<section>
+				<player
+					currentSong={currentSong}
+				/>
+			</section>
+
+
+
+		</section>
 	);
 };
 
