@@ -24,11 +24,10 @@ const Home = () => {
 	const getData = async () => {
 
 		try {
-			const resp = await ferch("https://playground.4geeks.com/sound/songs")
+			const resp = await fetch("https://playground.4geeks.com/sound/songs")
 			const data = await resp.json()
-			setSongs(await data)
+			setSongs(data)
 		} catch (error) {
-			console.error("error----> ", error)
 		}
 	}
 
