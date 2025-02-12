@@ -4,8 +4,11 @@ import { Player } from "./Player";
 
 const Home = () => {
 
-	const [songs, setSongs] = useState([])
-	const [currentSong, setCurrentSong] = useState()
+	const [songs, setSongs] = useState([]);
+	const [currentSong, setCurrentSong] = useState();
+	const [isPlaying, setIsPlaying] = useState(false);
+
+	const audioElem = useRef()
 
 	useEffect(() => {
 		getData()
@@ -47,8 +50,16 @@ const Home = () => {
 
 
 			<section>
+				<audio  
+					hidden
+					src={currentSong && "https://playground.4geeks.com/apis/fake/sound/" + currentSong.url}
+					ref={audioElem}
+					autoPlay
+				/>
 				<player
 					currentSong={currentSong}
+					isPlaying={isPlaying}
+					setIsPlaying={setIsPlaying}
 				/>
 			</section>
 
